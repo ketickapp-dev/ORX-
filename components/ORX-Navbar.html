@@ -1,0 +1,75 @@
+<style>
+    .orx-nav-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        z-index: 1000;
+    }
+
+    .orx-navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 15px;
+        /* Menggunakan class orx-glass yang kita bina sebelum ini */
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-item {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-item.active {
+        color: #00d2ff;
+        text-shadow: 0 0 10px #00d2ff;
+        transform: translateY(-5px);
+    }
+
+    .nav-item i {
+        margin-bottom: 4px;
+    }
+
+    .nav-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>
+
+<div class="orx-nav-container">
+    <nav class="orx-navbar">
+        <a href="#" class="nav-item active btn-orx">
+            <span>🏠</span>
+            <span class="nav-label">Utama</span>
+        </a>
+        
+        <a href="#" class="nav-item btn-orx">
+            <span>📦</span>
+            <span class="nav-label">Stok</span>
+        </a>
+
+        <a href="#" class="nav-item btn-orx">
+            <span>📊</span>
+            <span class="nav-label">Jualan</span>
+        </a>
+
+        <a href="#" class="nav-item btn-orx">
+            <span>⚙️</span>
+            <span class="nav-label">Setting</span>
+        </a>
+    </nav>
+</div>

@@ -1,24 +1,36 @@
-/* Neon Glow untuk Button & Border */
+/* ORX 🧠 Neon Glow v2.0 (Premium Subtle Edition)
+  Tukar cahaya melampau kepada aksen rim light yang profesional.
+*/
+
 .neon-blue {
-    box-shadow: 0 0 10px #00d2ff, 0 0 20px #00d2ff;
-    border: 2px solid #00d2ff;
+    /* Subtle Rim Light */
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.1), inset 0 0 10px rgba(0, 210, 255, 0.05);
+    border: 1px solid rgba(0, 210, 255, 0.2);
 }
 
 .neon-text {
     color: #fff;
-    text-shadow: 0 0 5px #fff, 0 0 10px #00d2ff, 0 0 20px #00d2ff;
+    /* Matikan text-shadow yang melampau, guna gradient halus */
+    background: linear-gradient(180deg, #fff 0%, #a0eaff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 2px rgba(0, 210, 255, 0.3));
 }
 
 .btn-orx {
-    transition: all 0.3s ease;
-    background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-    border: none;
-    color: white;
-    font-weight: bold;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Gradient yang lebih gelap & premium */
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.2) 0%, rgba(58, 123, 213, 0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
     cursor: pointer;
 }
 
 .btn-orx:active {
-    transform: scale(0.95);
-    filter: brightness(1.2);
+    transform: scale(0.97);
+    background: rgba(0, 210, 255, 0.2);
+    border-color: rgba(0, 210, 255, 0.5);
+    color: #fff;
 }

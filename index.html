@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ORX 🧠 GOD MOD</title>
+    <title>ORX 🧠 GOD MOD v2.0</title>
     
     <link rel="stylesheet" href="assets/css/glassmorphism.css">
     <link rel="stylesheet" href="assets/css/neon-glow.css">
@@ -11,9 +11,19 @@
     
     <style>
         body {
-            background: #050505; 
+            /* Warna asas gelap pekat */
+            background-color: #030303; 
+            /* BACKROUND GRID KOSONG DIISI DI SINI 
+              Guna linear-gradient untuk cipta grid halus.
+            */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px; /* Saiz kotak grid */
+            background-position: center;
+            
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: white;
+            color: rgba(255, 255, 255, 0.9);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -22,89 +32,69 @@
             min-height: 100vh;
         }
 
-        .orx-container {
-            width: 100%;
-            max-width: 500px;
-            margin-top: 40px;
-            padding-bottom: 150px; 
-        }
+        /* Container & UI Components (Sama seperti v1.0, cuma tweak sikit padding) */
+        .orx-container { width: 100%; max-width: 500px; margin-top: 30px; padding-bottom: 150px; }
+        .orx-card { margin-bottom: 15px; padding: 20px; position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .card-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: #00d2ff; margin-bottom: 8px; display: block; opacity: 0.8; }
+        .card-value { font-size: 2.2rem; font-weight: 700; margin: 5px 0; color: #fff; }
+        
+        /* Gaya Teks Header (Subtle) */
+        .header-subtitle { color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; letter-spacing: 1px; margin-top: -5px; }
 
-        /* Card & UI Components */
-        .orx-card {
-            margin-bottom: 20px;
-            padding: 25px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #00d2ff; margin-bottom: 10px; display: block; transition: color 0.3s ease; }
-        .card-value { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
-
-        /* Modal Styles */
-        .orx-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-            z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s ease;
-        }
-        .orx-modal-sheet {
-            position: fixed; bottom: -100%; left: 0; width: 100%;
-            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(25px);
-            border-top: 2px solid rgba(0, 210, 255, 0.3);
-            border-radius: 30px 30px 0 0; padding: 30px 20px 50px 20px;
-            z-index: 2001; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.15);
-            box-sizing: border-box;
-        }
+        /* Modal Styles (Sama, pekatkan sikit) */
+        .orx-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .orx-modal-sheet { position: fixed; bottom: -100%; left: 0; width: 100%; background: #0a0a0a; border-top: 1px solid rgba(255, 255, 255, 0.05); border-radius: 25px 25px 0 0; padding: 25px 20px 40px 20px; z-index: 2001; transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-sizing: border-box; }
         .orx-modal-active .orx-modal-overlay { display: block; opacity: 1; }
         .orx-modal-active .orx-modal-sheet { bottom: 0; }
-        .modal-handle { width: 40px; height: 5px; background: rgba(255, 255, 255, 0.2); border-radius: 10px; margin: -15px auto 20px auto; }
+        .modal-handle { width: 35px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; margin: -10px auto 20px auto; }
 
-        /* Input Styles */
-        .orx-input-group { position: relative; margin-bottom: 25px; width: 100%; }
-        .orx-field { width: 100%; padding: 15px 0; font-size: 1rem; color: #fff; background: transparent; border: none; border-bottom: 2px solid rgba(255, 255, 255, 0.1); outline: none; }
-        .orx-label { position: absolute; top: 15px; left: 0; font-size: 1rem; color: rgba(255, 255, 255, 0.4); pointer-events: none; transition: all 0.3s ease; }
-        .orx-field:focus ~ .orx-label, .orx-field:valid ~ .orx-label { top: -15px; font-size: 0.7rem; color: #00d2ff; }
+        /* Input Styles (Premium Dark) */
+        .orx-input-group { position: relative; margin-bottom: 20px; width: 100%; }
+        .orx-field { width: 100%; padding: 12px 0; font-size: 0.95rem; color: #fff; background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); outline: none; }
+        .orx-label { position: absolute; top: 12px; left: 0; font-size: 0.95rem; color: rgba(255, 255, 255, 0.3); pointer-events: none; transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 1px; }
+        .orx-field:focus ~ .orx-label, .orx-field:valid ~ .orx-label { top: -12px; font-size: 0.65rem; color: #00d2ff; opacity: 1; }
 
-        /* Navbar */
-        .orx-nav-container { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 1000; }
-        .orx-navbar { display: flex; justify-content: space-around; padding: 12px; background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 35px; }
-        .nav-item { text-decoration: none; font-size: 1.3rem; display: flex; flex-direction: column; align-items: center; color: rgba(255, 255, 255, 0.4); }
-        .nav-item.active { color: #00d2ff; text-shadow: 0 0 15px #00d2ff; }
-        .nav-label { font-size: 0.6rem; margin-top: 4px; text-transform: uppercase; }
+        /* Navbar (Sama, pekatkan sikit) */
+        .orx-nav-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 380px; z-index: 1000; }
+        .orx-navbar { display: flex; justify-content: space-around; padding: 10px; background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .nav-item { text-decoration: none; font-size: 1.2rem; display: flex; flex-direction: column; align-items: center; color: rgba(255, 255, 255, 0.3); transition: all 0.3s; }
+        .nav-item.active { color: #00d2ff; filter: drop-shadow(0 0 3px rgba(0, 210, 255, 0.5)); }
+        .nav-label { font-size: 0.55rem; margin-top: 3px; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Module Switcher Buttons */
-        .switcher-bar { margin-top: 40px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .btn-switch { background:none; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:8px 15px; border-radius:12px; font-size:10px; cursor:pointer; transition: all 0.3s; }
+        /* Module Switcher Buttons (Sama) */
+        .switcher-bar { margin-top: 30px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .btn-switch { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); color:rgba(255,255,255,0.5); padding:6px 12px; border-radius:10px; font-size:9px; cursor:pointer; transition: all 0.3s; text-transform: uppercase; }
+        .btn-switch:hover { background: rgba(255,255,255,0.05); color: #fff; }
     </style>
 </head>
 <body class="orx-reveal">
 
     <div class="orx-container">
-        <header style="text-align: center; margin-bottom: 40px;">
-            <h1 class="neon-text orx-float" style="font-size: 2.5rem; margin: 0; transition: all 0.5s ease;">ORX 🧠</h1>
-            <p style="color: #666; font-size: 0.9rem;">Intelligence Engine v1.0</p>
+        <header style="text-align: center; margin-bottom: 30px;">
+            <h1 class="neon-text orx-float" style="font-size: 2.2rem; margin: 0; transition: all 0.5s ease;">ORX 🧠</h1>
+            <p class="header-subtitle">Intelligence Engine v2.0</p>
         </header>
 
-        <div class="orx-card orx-glass btn-orx orx-pulse-blue">
+        <div class="orx-card orx-glass btn-orx orx-pulse-blue" style="border-left: 3px solid rgba(0, 210, 255, 0.3);">
             <span class="card-label">Status Semasa</span>
             <div class="card-value">24</div>
-            <p style="color: #888; margin: 0;">Pelanggan menunggu dalam giliran</p>
+            <p style="color: rgba(255,255,255,0.5); margin: 0; font-size: 0.8rem;">Pelanggan dalam giliran</p>
         </div>
 
-        <div class="orx-card orx-glass btn-orx" style="border-left: 4px solid #00d2ff;">
+        <div class="orx-card orx-glass btn-orx" style="border-left: 3px solid rgba(0, 210, 255, 0.3);">
             <span class="card-label">Jualan Hari Ini</span>
             <div class="card-value">RM 1,240</div>
-            <p style="color: #888; margin: 0;">Peningkatan 15% dari semalam</p>
+            <p style="color: rgba(255,255,255,0.5); margin: 0; font-size: 0.8rem;">Peningkatan 15%</p>
         </div>
 
-        <button id="mainActionBtn" class="btn-orx neon-blue" onclick="openORXModal()" style="width: 100%; padding: 20px; border-radius: 20px; font-size: 1rem; margin-top: 10px; transition: all 0.5s ease;">
+        <button id="mainActionBtn" class="btn-orx neon-blue" onclick="openORXModal()" style="width: 100%; padding: 18px; border-radius: 15px; font-size: 0.9rem; margin-top: 10px; transition: all 0.5s ease; text-transform: uppercase; letter-spacing: 1px;">
             DAFTAR PELANGGAN BARU
         </button>
 
         <div class="switcher-bar">
-            <button class="btn-switch" onclick="switchORXModule('IT_STORE')" style="border-color:#00d2ff; color:#00d2ff;">MOD IT</button>
-            <button class="btn-switch" onclick="switchORXModule('CLINIC')" style="border-color:#00ff88; color:#00ff88;">MOD KLINIK</button>
-            <button class="btn-switch" onclick="switchORXModule('RETAIL')" style="border-color:#ff0077; color:#ff0077;">MOD RETAIL</button>
+            <button class="btn-switch" onclick="switchORXModule('IT_STORE')" style="color:#00d2ff;">MOD IT</button>
+            <button class="btn-switch" onclick="switchORXModule('CLINIC')" style="color:#00ff88;">MOD KLINIK</button>
+            <button class="btn-switch" onclick="switchORXModule('RETAIL')" style="color:#ff0077;">MOD RETAIL</button>
         </div>
     </div>
 
@@ -112,7 +102,7 @@
         <div class="orx-modal-overlay" onclick="closeORXModal()"></div>
         <div class="orx-modal-sheet">
             <div class="modal-handle"></div>
-            <h2 id="modalTitle" style="text-align:center; color:#00d2ff; letter-spacing:2px; font-size:1.2rem; margin-bottom:30px;">ORX REGISTER</h2>
+            <h2 id="modalTitle" style="text-align:center; color:#fff; letter-spacing:1px; font-size:1rem; margin-bottom:25px; text-transform: uppercase;">ORX REGISTER</h2>
             
             <div class="orx-input-group">
                 <input type="text" class="orx-field" required>
@@ -123,7 +113,7 @@
                 <label class="orx-label">No. Telefon</label>
             </div>
 
-            <button id="modalActionBtn" class="btn-orx neon-blue" onclick="closeORXModal()" style="width: 100%; padding: 18px; border-radius: 15px; margin-top: 10px;">
+            <button id="modalActionBtn" class="btn-orx neon-blue" onclick="closeORXModal()" style="width: 100%; padding: 15px; border-radius: 12px; margin-top: 10px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">
                 SAHKAN DATA 🧠
             </button>
         </div>

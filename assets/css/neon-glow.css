@@ -1,0 +1,24 @@
+/* Neon Glow untuk Button & Border */
+.neon-blue {
+    box-shadow: 0 0 10px #00d2ff, 0 0 20px #00d2ff;
+    border: 2px solid #00d2ff;
+}
+
+.neon-text {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #00d2ff, 0 0 20px #00d2ff;
+}
+
+.btn-orx {
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-orx:active {
+    transform: scale(0.95);
+    filter: brightness(1.2);
+}

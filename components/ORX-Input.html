@@ -1,0 +1,60 @@
+<style>
+    .orx-input-group {
+        position: relative;
+        margin-bottom: 25px;
+        width: 100%;
+    }
+
+    .orx-field {
+        width: 100%;
+        padding: 15px 0;
+        font-size: 1rem;
+        color: #fff;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    /* Floating Label Effect */
+    .orx-label {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Fokus & Valid State */
+    .orx-field:focus ~ .orx-label,
+    .orx-field:valid ~ .orx-label {
+        top: -15px;
+        font-size: 0.7rem;
+        color: #00d2ff;
+        text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    .orx-field:focus {
+        border-bottom: 2px solid #00d2ff;
+        box-shadow: 0 1px 0 0 #00d2ff;
+    }
+
+    /* Khusus untuk Mobile: Menghilangkan border kuning/biru default browser */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus {
+        -webkit-text-fill-color: white;
+        -webkit-box-shadow: 0 0 0px 1000px #0a0a0a inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+</style>
+
+<div class="orx-input-group">
+    <input type="text" class="orx-field" required>
+    <label class="orx-label">Nama Pelanggan / Device ID</label>
+</div>

@@ -1,0 +1,82 @@
+<style>
+    .orx-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Efek "Glow" halus pada sisi kad */
+    .orx-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #00d2ff, #3a7bd5);
+        border-radius: 4px 0 0 4px;
+    }
+
+    /* Respon bila ditekan (Mobile Feel) */
+    .orx-card:active {
+        transform: scale(0.96);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(0, 210, 255, 0.3);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .card-label {
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .card-icon {
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+
+    .card-main-value {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 5px 0;
+        background: linear-gradient(to right, #fff, #00d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card-footer-text {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin: 0;
+    }
+</style>
+
+<div class="orx-card btn-orx">
+    <div class="card-header">
+        <span class="card-label">Prestasi Kedai</span>
+        <span class="card-icon">⚡</span>
+    </div>
+    
+    <div class="card-main-value">RM 4,500</div>
+    
+    <p class="card-footer-text">
+        Sasaran bulanan tercapai <strong>85%</strong>
+    </p>
+</div>

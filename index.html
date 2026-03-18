@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/neon-glow.css">
     <style>
         body {
-            background: #050505; /* Lebih gelap untuk kontras neon */
+            background: #050505; 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             color: white;
             margin: 0;
@@ -19,15 +19,14 @@
             min-height: 100vh;
         }
 
-        /* Container Utama */
         .orx-container {
             width: 100%;
             max-width: 500px;
             margin-top: 40px;
-            padding-bottom: 100px; /* Ruang untuk navbar bawah */
+            padding-bottom: 120px;
         }
 
-        /* ORX-Card Style */
+        /* Card & UI Components */
         .orx-card {
             margin-bottom: 20px;
             padding: 25px;
@@ -36,68 +35,39 @@
             transition: transform 0.3s ease;
         }
 
-        .orx-card:active {
-            transform: scale(0.98);
-        }
+        .card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #00d2ff; margin-bottom: 10px; display: block; }
+        .card-value { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
 
-        .card-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #00d2ff;
-            margin-bottom: 10px;
-            display: block;
+        /* Modal Styles */
+        .orx-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+            z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s ease;
         }
+        .orx-modal-sheet {
+            position: fixed; bottom: -100%; left: 0; width: 100%;
+            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(25px);
+            border-top: 2px solid rgba(0, 210, 255, 0.3);
+            border-radius: 30px 30px 0 0; padding: 30px 20px 50px 20px;
+            z-index: 2001; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            box-sizing: border-box;
+        }
+        .orx-modal-active .orx-modal-overlay { display: block; opacity: 1; }
+        .orx-modal-active .orx-modal-sheet { bottom: 0; }
+        .modal-handle { width: 40px; height: 5px; background: rgba(255, 255, 255, 0.2); border-radius: 10px; margin: -15px auto 20px auto; }
 
-        .card-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 10px 0;
-        }
+        /* Input Styles */
+        .orx-input-group { position: relative; margin-bottom: 25px; width: 100%; }
+        .orx-field { width: 100%; padding: 15px 0; font-size: 1rem; color: #fff; background: transparent; border: none; border-bottom: 2px solid rgba(255, 255, 255, 0.1); outline: none; }
+        .orx-label { position: absolute; top: 15px; left: 0; font-size: 1rem; color: rgba(255, 255, 255, 0.4); pointer-events: none; transition: all 0.3s ease; }
+        .orx-field:focus ~ .orx-label, .orx-field:valid ~ .orx-label { top: -15px; font-size: 0.7rem; color: #00d2ff; }
 
-        /* Navbar Bawah Style */
-        .orx-nav-container {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            z-index: 1000;
-        }
-
-        .orx-navbar {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 12px;
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 35px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
-        }
-
-        .nav-item {
-            text-decoration: none;
-            font-size: 1.3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .nav-item.active {
-            color: #00d2ff;
-            text-shadow: 0 0 15px #00d2ff;
-        }
-
-        .nav-label {
-            font-size: 0.6rem;
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
+        /* Navbar */
+        .orx-nav-container { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; z-index: 1000; }
+        .orx-navbar { display: flex; justify-content: space-around; padding: 12px; background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 35px; }
+        .nav-item { text-decoration: none; font-size: 1.3rem; display: flex; flex-direction: column; align-items: center; color: rgba(255, 255, 255, 0.4); }
+        .nav-item.active { color: #00d2ff; text-shadow: 0 0 15px #00d2ff; }
+        .nav-label { font-size: 0.6rem; margin-top: 4px; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -120,32 +90,51 @@
             <p style="color: #888; margin: 0;">Peningkatan 15% dari semalam</p>
         </div>
 
-        <button class="btn-orx neon-blue" style="width: 100%; padding: 20px; border-radius: 20px; font-size: 1rem; margin-top: 10px;">
+        <button class="btn-orx neon-blue" onclick="openORXModal()" style="width: 100%; padding: 20px; border-radius: 20px; font-size: 1rem; margin-top: 10px;">
             DAFTAR PELANGGAN BARU
         </button>
     </div>
 
+    <div id="registrationModal">
+        <div class="orx-modal-overlay" onclick="closeORXModal()"></div>
+        <div class="orx-modal-sheet">
+            <div class="modal-handle"></div>
+            <h2 style="text-align:center; color:#00d2ff; letter-spacing:2px; font-size:1.2rem; margin-bottom:30px;">ORX REGISTER</h2>
+            
+            <div class="orx-input-group">
+                <input type="text" class="orx-field" required>
+                <label class="orx-label">Nama Penuh</label>
+            </div>
+            <div class="orx-input-group">
+                <input type="tel" class="orx-field" required>
+                <label class="orx-label">No. Telefon</label>
+            </div>
+
+            <button class="btn-orx neon-blue" onclick="closeORXModal()" style="width: 100%; padding: 18px; border-radius: 15px; margin-top: 10px;">
+                SAHKAN DATA 🧠
+            </button>
+        </div>
+    </div>
+
     <div class="orx-nav-container">
         <nav class="orx-navbar">
-            <a href="#" class="nav-item active btn-orx">
-                <span>🏠</span>
-                <span class="nav-label">Home</span>
-            </a>
-            <a href="#" class="nav-item btn-orx">
-                <span>📦</span>
-                <span class="nav-label">Inventory</span>
-            </a>
-            <a href="#" class="nav-item btn-orx">
-                <span>👥</span>
-                <span class="nav-label">Users</span>
-            </a>
-            <a href="#" class="nav-item btn-orx">
-                <span>⚙️</span>
-                <span class="nav-label">Config</span>
-            </a>
+            <a href="#" class="nav-item active btn-orx"><span>🏠</span><span class="nav-label">Home</span></a>
+            <a href="#" class="nav-item btn-orx"><span>📦</span><span class="nav-label">Inventory</span></a>
+            <a href="#" class="nav-item btn-orx"><span>👥</span><span class="nav-label">Users</span></a>
+            <a href="#" class="nav-item btn-orx"><span>⚙️</span><span class="nav-label">Config</span></a>
         </nav>
     </div>
 
+    <script>
+        function openORXModal() {
+            document.getElementById('registrationModal').classList.add('orx-modal-active');
+            if(window.ORXHaptic) ORXHaptic.success();
+        }
+        function closeORXModal() {
+            document.getElementById('registrationModal').classList.remove('orx-modal-active');
+            if(window.ORXHaptic) ORXHaptic.light();
+        }
+    </script>
     <script src="assets/js/haptic-engine.js"></script>
     <script src="assets/js/particle-fx.js"></script>
 </body>
